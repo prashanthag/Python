@@ -1,16 +1,21 @@
 #!/usr/bin/python
-import os
+#import os
+from subprocess import Popen, PIPE
 ip_list=["192.168.0.1", "192.168.0.103"]
 c=3
 r=3
-s=ip_list[0].strip('"')
-print s
-os.system("arp -a 192.168.01 >file")
-input=open("./file")
-for f in range(3):input.next()
-s=input.next()
-mac=s.split()[1].replace("-","")
-print mac
+for ss in ip_list:
+	ss=ss.strip('"')
+	pid = Popen(["arp", "-a", ss], stdout=PIPE)
+	s = pid.communicate()[0]
+	input=open("./file","w+");
+	input.write(s)
+	input.seek(0,0)	
+	for f in range(3):input.next()
+	mn=input.next()
+	mac=mn.split()[1].replace("-","")
+	print mac
+
 
 csec = 1.0/c
 rsec = 1.0/c
