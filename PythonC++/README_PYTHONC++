@@ -1,0 +1,2 @@
+* compile c++ and python in g++
+  g++ -I /usr/include/python3.6m/ py.cpp -lpython3.
